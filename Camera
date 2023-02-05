@@ -1,0 +1,17 @@
+import maya.cmds as cmds
+
+# Get the name of the selected object
+selected = cmds.ls(selection=True)
+
+# Create a camera if there is no camera in the scene
+if not cmds.ls(cameras=True):
+    cmds.camera()
+
+# Get the name of the first camera in the scene
+camera = cmds.ls(cameras=True)[0]
+
+# Parent the camera to the selected object
+cmds.parent(camera, selected[0])
+
+# Constrain the camera to the selected object
+cmds.pointConstraint(selected[0], camera)
